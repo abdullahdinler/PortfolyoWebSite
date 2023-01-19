@@ -1,7 +1,6 @@
 # PortfolyoWebSite
 Asp.net mvc ile tasarlanmış kişisel web sitesidir.
 
-Proje Canlı Linki: <a href="http://www.projedemo.somee.com/">Git</a>
 
 Kullanıcı Arayüzü
 
