@@ -1,0 +1,60 @@
+﻿@using EntityLayer.Concrete
+@using PagedList.Mvc
+@model PagedList.IPagedList<Contact>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<div class="col-md-12">
+    <div class="card card-primary card-outline">
+        <div class="card-header">
+            <h3 class="card-title">Gelen Mesajlar</h3>
+
+            <div class="card-tools">
+            @using (Html.BeginForm("Index", "Contact", FormMethod.Post))
+            {
+                <div class="input-group input-group-sm">
+                    @Html.TextBox("word", "",new {@class= "form-control" ,@placeholder= "Mail Ara..." })
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-outline-primary"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            }
+            </div>
+            <!-- /.card-tools -->
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+            <div class="mailbox-controls">
+                <div class="float-right">
+                </div>
+                <!-- /.float-right -->
+            </div>
+            <div class="table-responsive mailbox-messages">
+                <table class="table table-hover table-striped">
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="mailbox-name"><a href="/Contact/Detail/@item.Id">@item.FullName</a></td>
+                                <td class="mailbox-subject">
+                                    <b>@item.Subject </b> @item.MessageTxt.Substring(0, 6)...
+                                </td>
+                                <td class="mailbox-attachment"></td>
+                                <td class="mailbox-date">@item.MessageDate.ToString("g")</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <!-- /.table -->
+            </div>
+            <!-- /.mail-box-messages -->
+        </div>
+
+        <!-- /.card-body -->
+    </div>
+    @Html.PagedListPager(Model, _pageNo => Url.Action("Index", "Contact", new { pageNo = _pageNo }))
+    <!-- /.card -->
+</div>

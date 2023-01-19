@@ -1,0 +1,51 @@
+﻿@using EntityLayer.Concrete
+@model List<About>
+
+
+<section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Hakkımda</h2>
+            
+        </div>
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+
+            <div class="col-lg-4">
+                <img src="@item.Img" class="img-fluid" alt="">
+            </div>
+                <div class="col-lg-8 pt-4 pt-lg-0 content">
+                    <h3>@item.Title</h3>
+                    <p class="fst-italic">
+
+                    </p>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Doğum Tarihi:</strong> <span>@item.Birthday.ToString("d")</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong> <span>www.example.com</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Telefon:</strong> <span>@item.Phone</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Şehir:</strong> <span>@item.City</span></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Yaş:</strong> <span>22</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Derece:</strong> <span>@item.Degree</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>E-Mail:</strong> <span>@item.Mail</span></li>
+                                <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong> <span>@item.Freelance</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p>@item.AboutTxt</p>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>
+
+

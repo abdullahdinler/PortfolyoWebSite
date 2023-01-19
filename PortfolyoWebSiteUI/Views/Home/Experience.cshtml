@@ -1,0 +1,18 @@
+﻿@using EntityLayer.Concrete
+@model List<Experience>
+
+<div class="col-lg-6">
+    <h3 class="resume-title">Sertifikalarım</h3>
+    @foreach (var item in Model)
+    {
+<div class="resume-item">
+    <h4>@item.Position</h4>
+    <h5>@item.DateTime1.Year - @item.DateTime2.Year</h5>
+    <p><em>@item.WorkplaceName </em></p>
+    <ul>
+        <li>@item.WorkInfo</li>
+    </ul>
+</div>
+    }
+    
+</div>

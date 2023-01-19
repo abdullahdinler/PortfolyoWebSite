@@ -1,0 +1,86 @@
+﻿@model EntityLayer.Concrete.Contact
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="col-md-12">
+    <div class="card card-primary card-outline">
+        @using (Html.BeginForm("Detail", "Contact", FormMethod.Get))
+        {
+
+
+            <div class="card-header">
+                <h3 class="card-title">Mail Oku</h3>
+
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <div class="mailbox-read-info">
+                    <h5>@Html.DisplayFor(x => x.Subject)</h5>
+                    <h6>
+                        <br />
+                        Gönderen: @Html.DisplayFor(x => x.FullName)
+                        <br />
+                        E-Mail: @Html.DisplayFor(x => x.Mail)
+                        <span class="mailbox-read-time float-right">@Model.MessageDate.ToString("g")</span>
+                    </h6>
+                </div>
+                <!-- /.mailbox-read-info -->
+                <div class="mailbox-controls with-border text-center">
+
+                    <br />
+                </div>
+                <!-- /.mailbox-controls -->
+                <div class="mailbox-read-message">
+                    @Html.DisplayFor(x => x.MessageTxt)
+                </div>
+                <!-- /.mailbox-read-message -->
+            </div>
+            <!-- /.card-body -->
+
+            <!-- /.card-footer -->
+    <div class="card-footer">
+        <a href="@Url.Action("Delete", "Contact", new { id = @Model.Id })" id="delet" class="btn btn-outline-danger text-danger btn-sm"><i class="far fa-trash-alt"></i> Sil</a>
+    </div>
+            <!-- /.card-footer -->
+        }
+    </div>
+    <!-- /.card -->
+</div>
+<script type="text/javascript">
+    $('#delet').on('click', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        Swal.fire({
+            title: 'Mesajı silmek istediğinizden emin misiniz?',
+            text: "Bu işlem geri alınamaz!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Evet, sil!',
+            cancelButtonText: 'Vazgeç'
+        }).then((result) => {
+            if (result.value) {
+                // Eğer kullanıcı 'Evet, sil!' butonuna tıklar ise burada ürünü silmek için gerekli kodları yazın
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    success: function (result) {
+                        if (result) {
+                            Swal.fire(
+                                'Silindi!',
+                                'Mesajı başarıyla silindi.',
+                                'success'
+                            ).then(() => {
+                                location.assign("/Contact/index");
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
+

@@ -1,0 +1,129 @@
+﻿@using EntityLayer.Concrete
+@model List<Service>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="content">
+    <div class="text-right" style="margin-bottom: 8px">
+        <a class="btn btn-outline-success" href="/Service/Add/">Yeni Hizmet Ekle</a>
+    </div>
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Hizmetler</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th style="width: 15%">
+                            Hizmet İsmi
+                        </th>
+                        <th style="width: 20%">
+                            Hizmet Görsel
+                        </th>
+                        <th style="width: 30%">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a>
+                                    @item.Name
+                                </a>
+                            </td>
+
+                            <td>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <img alt="Avatar" class="img-size-50 " src="@item.Img">
+                                    </li>
+                                </ul>
+                            </td>
+                            <td class="project-actions text-right">
+                                <a class="btn btn-outline-warning " href="/Service/Edit/@item.Id">
+                                    <i class="fas fa-pencil-alt">
+                                    </i>
+
+                                </a>
+                                <a href="@Url.Action("Delete", "Service", new { id = @item.Id })" id="delet" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i> </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</section>
+<script type="text/javascript">
+    // sweetalert delete
+    $('.btn-outline-danger').on('click', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        Swal.fire({
+            title: 'Hizmet silmek istediğinizden emin misiniz?',
+            text: "Bu işlem geri alınamaz!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Evet, sil!',
+            cancelButtonText: 'Vazgeç'
+        }).then((result) => {
+            if (result.value) {
+                // Eğer kullanıcı 'Evet, sil!' butonuna tıklar ise burada ürünü silmek için gerekli kodları yazın
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    success: function (result) {
+                        if (result) {
+                            Swal.fire(
+                                'Silindi!',
+                                'Hizmet başarıyla silindi.',
+                                'success'
+                            ).then(() => {
+                                location.reload();
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+
+
+<script>
+// sweetalert add
+    var alertAdd = "@((string) ViewBag.add)";
+    if (alertAdd != null && alertAdd != "") {
+        swal.fire("", "Yeni hizmet başarılı bir şekilde eklendi.", "success");
+    }
+
+</script>
+
+<script>
+// sweetalert edit
+    var alertEdit= "@((string) ViewBag.edit)";
+    if (alertEdit != null && alertEdit != "") {
+        swal.fire("", "Hizmet başarılı bir şekilde güncellendi.", "success");
+    }
+</script>
+
+

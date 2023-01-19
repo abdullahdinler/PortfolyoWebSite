@@ -1,0 +1,69 @@
+﻿@model EntityLayer.Concrete.About
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="margin: 0px 10% 20px 10%" class="form-group">
+
+    @using (Html.BeginForm("Edit", "About", FormMethod.Post, new{ @enctype="multipart/form-data"}))
+    {<form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.Label("Adı", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control " })
+                    @Html.ValidationMessageFor(x => x.Name)
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Soyadı", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.SurName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.SurName)
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.Label("Mevki", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Title)
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Derece", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.Degree, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.Label("Mail", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.Mail, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Telefon", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.Phone, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.Label("Freelance", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.Freelance, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Görsel", new { @class = "text-bold" })
+                    <input type="file" name="Img" class="form-control"/>
+                    @Html.ValidationMessageFor(x=>x.Img)
+                    @*@Html.TextBoxFor(x => x.Img, new { @class = "form-control" })*@
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group col-md-12">
+                    @Html.Label("Hakkımda", new { @class = "text-bold" })
+                    @Html.TextAreaFor(x => x.AboutTxt, new { @class = "form-control", @rows = "5" })
+                </div>
+            </div>
+            <button class="btn btn-outline-info">Kaydet</button>
+        </form>
+    }
+
+
+</div>
+
+

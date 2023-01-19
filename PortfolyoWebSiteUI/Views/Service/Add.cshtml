@@ -1,0 +1,38 @@
+﻿@model EntityLayer.Concrete.Service
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="margin: 0px 10% 20px 10%" class="form-group">
+
+    @using (Html.BeginForm("Add", "Service", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {<form>
+         <div class="form-row">
+             <div class="form-group col-md-6">
+                 @Html.Label("Hizmet Adı", new { @class = "text-bold" })
+                 @Html.TextBoxFor(x => x.Name, new { @class = "form-control " })
+                 @Html.ValidationMessageFor(x => x.Name)
+             </div>
+             <div class="form-group col-md-6">
+                 @Html.Label("Hizmet İkon", new { @class = "text-bold" })
+                 <input type="file" name="Img" class="form-control" />
+                 @Html.ValidationMessageFor(x => x.Img)
+             </div>
+         </div>
+         <div class="form-row">
+             <div class="form-group col-md-12">
+                 @Html.Label("Hizmet Hakkında", new { @class = "text-bold" })
+                 @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                 @Html.ValidationMessageFor(x => x.Description)
+             </div>
+         </div>
+
+         <button class="btn btn-outline-info">Kaydet</button>
+     </form>
+    }
+
+
+</div>
+
+

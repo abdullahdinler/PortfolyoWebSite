@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "EditAbout";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<button class="btn btn-info" data-toggle="modal" data-target="#Modal1">Düzenle</button>
+<div class="modal" id="Modal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Hakkımızda</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-group" action="/AdminAbout/Add/" method="post">
+                    <label class="text-bold">Hakkımızda Metin 1</label>
+                    <textarea type="text" name="Details" class="form-control" rows="4" cols="50" maxlength="200"></textarea>
+                    <br />
+                    <label class="text-bold">Hakkımızda Metin 2</label>
+                    <textarea type="text" name="Details2" class="form-control" rows="4" cols="50" maxlength="200"></textarea>
+                    <br />
+                    <label class="text-bold">Hakkımızda Resim 1</label>
+                    <input type="text" name="Img" class="form-control" />
+                    <br />
+                    <label class="text-bold">Hakkımızda Resim 2</label>
+                    <input type="text" name="Img2" class="form-control" />
+                    <br />
+                    <button class="btn btn-info">Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,22 @@
+﻿@using EntityLayer.Concrete
+@model List<Portfolio>
+
+<div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+    
+    @foreach (var item in Model)
+    {
+    <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+        <div class="portfolio-wrap">
+            <img src="@item.Img" class="img-fluid" alt="@item.Name">
+            <div class="portfolio-info">
+                <h4>@item.Name</h4>
+                <div class="portfolio-links">
+                    <a href="@item.Img" data-gallery="portfolioGallery" class="portfolio-lightbox" title="@item.Name"><i class="bx bx-plus"></i></a>
+                    <a href="@item.Link" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+
+</div>

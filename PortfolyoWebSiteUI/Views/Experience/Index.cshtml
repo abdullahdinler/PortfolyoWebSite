@@ -1,0 +1,105 @@
+﻿@using EntityLayer.Concrete
+@model List<Experience>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <!-- Timelime example  -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-right ">
+                <a href="/Experience/Add/" class="btn btn-outline-success btn-group-lg">Yeni Deneyim Ekle</a>
+            </div>
+            <!-- The time line -->
+            <div class="timeline">
+
+                @foreach (var item in Model)
+                {
+
+
+                    <div class="time-label">
+                        <span class="bg-gradient-lightblue">@item.DateTime1.Date.ToString("dd MMM yyyy") - @item.DateTime2.Date.ToString("dd MMM yyyy")</span>
+                    </div>
+                    <!-- /.timeline-label -->
+                    <!-- timeline item -->
+                    <div>
+                        <i class="nav-icon fas fa-briefcase bg-green"></i>
+                        <div class="timeline-item">
+                            <h3 class="timeline-header"><a href="#">@item.WorkplaceName</a> @item.Position</h3>
+                            <div class="timeline-body">
+                                @item.WorkInfo
+                            </div>
+                            <div class="timeline-footer ">
+                                <a href="/Experience/Edit/@item.Id" class="btn btn-outline-warning text-warning btn-sm"><i class="fas fa-pencil-alt"></i> Düzenle</a>
+                                <a id="delet" href="@Url.Action("Delete", "Experience", new { id = @item.Id })" class="btn btn-outline-danger text-danger btn-sm"><i class="far fa-trash-alt"></i> Sil</a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END timeline item -->
+                }
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('.btn-outline-danger').on('click', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        Swal.fire({
+            title: 'Deneyimi silmek istediğinizden emin misiniz?',
+            text: "Bu işlem geri alınamaz!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Evet, sil!',
+            cancelButtonText: 'Vazgeç'
+        }).then((result) => {
+            if (result.value) {
+                // Eğer kullanıcı 'Evet, sil!' butonuna tıklar ise burada ürünü silmek için gerekli kodları yazın
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    success: function (result) {
+                        if (result) {
+                            Swal.fire(
+                                'Silindi!',
+                                'Deneyim başarıyla silindi.',
+                                'success'
+                            ).then(() => {
+                                location.reload();
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+
+<script>
+// sweetalert edit
+    var valueEdit = "@((string) ViewBag.edit)";
+    if (valueEdit != null && valueEdit != "") {
+        Swal.fire("", "Deneyim  bilgisi başarılı bir şekilde güncellendi.", "success");
+    }
+
+</script>
+
+
+
+<script>
+// sweetalert add
+    var value = "@((string) ViewBag.add)";
+    if (value != null && value != "") {
+        Swal.fire("", "Yeni deneyim bilgisi başarılı bir şekilde eklendi.", "success");
+    }
+
+</script>

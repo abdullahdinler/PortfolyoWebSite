@@ -1,0 +1,27 @@
+﻿@model EntityLayer.Concrete.Contact
+
+
+<div class="col-lg-8 mt-5 mt-lg-0">
+    @using (Html.BeginForm("Contact2", "Home", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <input type="text" name="FullName" class="form-control" id="name" placeholder="İsmin" required>
+            </div>
+            <div class="col-md-6 form-group mt-3 mt-md-0">
+                <input type="email" class="form-control" name="Mail" id="email" placeholder="Epostan" required>
+            </div>
+        </div>
+        <div class="form-group mt-3">
+            <input type="text" class="form-control" name="Subject" id="subject" placeholder="Konu" required>
+        </div>
+        <div class="form-group mt-3">
+            <textarea class="form-control" name="MessageTxt" rows="5" placeholder="Mesajınız" required></textarea>
+        </div>
+        <br />
+        <div class="text-center"><button id="alert" class="btn btn-outline-primary" type="submit">Mesajı Gönder</button></div>
+    }
+</div>
+
+
+

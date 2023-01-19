@@ -1,0 +1,45 @@
+﻿@model EntityLayer.Concrete.Education
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="margin: 0px 10% 20px 10%" class="form-group">
+
+    @using (Html.BeginForm("Edit", "Education", FormMethod.Post))
+    {<form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.Label("Okul Adı", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.SchoolName, new { @class = "form-control " })
+                    @Html.ValidationMessageFor(x => x.SchoolName)
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Bölüm Adı", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.EpisodeName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.EpisodeName)
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.Label("Başlangıç Tarihi", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.DateTime1, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Bittis Tarihi", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.DateTime2, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group col-md-12">
+                    @Html.Label("Okul Hakkında Bilgi", new { @class = "text-bold" })
+                    @Html.TextAreaFor(x => x.Explanation, new { @class = "form-control", @rows = "5" })
+                    @Html.ValidationMessageFor(x => x.Explanation)
+                </div>
+            </div>
+            <button class="btn btn-outline-info">Kaydet</button>
+        </form>
+    }
+
+
+</div>

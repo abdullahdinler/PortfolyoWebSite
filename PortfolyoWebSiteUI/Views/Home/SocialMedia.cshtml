@@ -1,0 +1,14 @@
+﻿@using EntityLayer.Concrete
+@model List<SocialMedia>
+
+
+<div class="social-links">
+    @foreach (var item in Model)
+    {
+        if (@item.Status == true)
+        {
+            <a href="@item.Link" class="@item.Name" target="_blank"><i class="bx bxl-@item.Name"></i></a>
+        }
+
+    }
+</div>

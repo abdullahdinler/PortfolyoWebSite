@@ -1,0 +1,193 @@
+﻿@using EntityLayer.Concrete
+@model List<SocialMedia>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{
+    string color = "";
+    string icon = "";
+}
+
+<section class="content">
+    <div class="text-right" style="margin-bottom: 8px">
+    </div>
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Sosyal Medya Hesaplarım</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th style="width: 15%">
+                            İcon
+                        </th>
+                        <th style="width: 15%">
+                            Sosyal Medya
+                        </th>
+                        <th style="width: 10%">
+                            Kullanıcı Adı
+                        </th>
+                        <th>
+                            Durum
+                        </th>
+                        <th style="width: 10%">
+                            İşlem
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        if (@item.Status == true)
+                        {
+                            color = "btn-outline-success";
+                            icon = "fa-pause";
+
+                        }
+                        else
+                        {
+                            color = "btn-outline-danger";
+                            icon = "fa-play";
+
+                        }
+                        <tr>
+                            <td>
+                                <a>
+                                    <li class="list-inline-item">
+                                        <img alt="@item.Name" class="img-size-50" src="@item.Icon">
+                                    </li>
+                                </a>
+                            </td>
+                            <td>
+                                <a>
+                                    @item.Name
+                                </a>
+                            </td>
+
+                            <td>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a>@item.Link</a>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+
+                                <a id="status" class="btn @color" href="/SocialMedia/Status/@item.Id">
+                                    <i class="fas @icon">
+                                    </i>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-warning " href="/SocialMedia/Edit/@item.Id">
+                                    <i class="fas fa-pencil-alt">
+                                    </i>
+
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</section>
+
+<script type="text/javascript">
+    // sweetalert status devre dışı
+    $('.btn-outline-success').on('click', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        Swal.fire({
+            title: 'Hesabı devre dışı bırakmak istediğinizden emin misiniz?',
+            text: "",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Evet',
+            cancelButtonText: 'Vazgeç'
+        }).then((result) => {
+            if (result.value) {
+                // Eğer kullanıcı 'Evet, sil!' butonuna tıklar ise burada ürünü silmek için gerekli kodları yazın
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    success: function (result) {
+                        if (result) {
+                            Swal.fire(
+                                'Devre dışı!',
+                                'Hesab devre dışı bırakıldı.',
+                                'success'
+                            ).then(() => {
+                                location.reload();
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+<script type="text/javascript">
+    // sweetalert status aktif edildi
+    $('.btn-outline-danger').on('click', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        Swal.fire({
+            title: 'Hesabı aktif ekmek istediğinizden emin misiniz?',
+            text: "",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Evet',
+            cancelButtonText: 'Vazgeç'
+        }).then((result) => {
+            if (result.value) {
+                // Eğer kullanıcı 'Evet, sil!' butonuna tıklar ise burada ürünü silmek için gerekli kodları yazın
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    success: function (result) {
+                        if (result) {
+                            Swal.fire(
+                                'Aktif edildi!',
+                                'Hesab aktif edildi.',
+                                'success'
+                            ).then(() => {
+                                location.reload();
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+
+<script>
+// sweetalert edit
+    var alertEdit= "@((string) ViewBag.edit)";
+    if (alertEdit != null && alertEdit != "") {
+        swal.fire("", "Hesap başarılı bir şekilde güncellendi.", "success");
+    }
+</script>
+
+

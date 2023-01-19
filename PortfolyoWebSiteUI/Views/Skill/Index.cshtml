@@ -1,0 +1,131 @@
+﻿@using EntityLayer.Concrete
+@using PagedList.Mvc
+@model PagedList.IPagedList<Skill>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{
+    string color = "";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Yeteneklerim </h3>
+        <div class="text-right">
+            <a href="/Skill/Add/" class="btn btn-outline-success ">Yeni Yetenek Ekle</a>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body p-0">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                    
+                <th>Yetenek</th>
+                <th>Derece</th>
+                <th>Oran</th>
+                <th class="text-right"></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                if (@item.SkillValue <= 49)
+                {
+                    color = "bg-danger";
+                }
+                if (@item.SkillValue >= 50 && @item.SkillValue <= 70)
+                {
+                    color = "bg-warning";
+                }
+                if (item.SkillValue >= 71)
+                {
+                    color = "bg-success";
+                }
+                <tr>
+
+                    <td>@item.Name</td>
+                    <td>
+                        <div class="progress progress-xs">
+                            <div class="progress-bar @color" style="width: @item.SkillValue%"></div>
+                        </div>
+                    </td>
+                    <td><span class="badge @color">@item.SkillValue%</span></td>
+                    <td class="text-right">
+                        <a href="/Skill/Edit/@item.Id" class="btn btn-outline-warning" style="margin-right: 10px">
+                            <i class="fas fa-pencil-alt">
+                            </i>
+                        </a>
+                        <a href="@Url.Action("Delete", "Skill", new { id = @item.Id })" id="delet" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i> </a>
+                    </td>
+                   
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+   
+    <!-- /.card-body -->
+</div>
+@Html.PagedListPager(Model, _pageNo => Url.Action("Index", "Skill", new { pageNo = _pageNo }))
+
+
+<script type="text/javascript">
+    // sweetalert delete
+    $('.btn-outline-danger').on('click', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        Swal.fire({
+            title: 'Yetenek bilgisini silmek istediğinizden emin misiniz?',
+            text: "Bu işlem geri alınamaz!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Evet, sil!',
+            cancelButtonText: 'Vazgeç'
+        }).then((result) => {
+            if (result.value) {
+                // Eğer kullanıcı 'Evet, sil!' butonuna tıklar ise burada ürünü silmek için gerekli kodları yazın
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    success: function (result) {
+                        if (result) {
+                            Swal.fire(
+                                'Silindi!',
+                                'Yetenek başarıyla silindi.',
+                                'success'
+                            ).then(() => {
+                                location.reload();
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+
+
+<script>
+// sweetalert add
+    var alertAdd = "@((string) ViewBag.add)";
+    if (alertAdd != null && alertAdd != "") {
+        swal.fire("", "Yeni yetenek başarılı bir şekilde eklendi.", "success");
+    }
+
+</script>
+
+<script>
+// sweetalert edit
+    var alertEdit= "@((string) ViewBag.edit)";
+    if (alertEdit != null && alertEdit != "") {
+        swal.fire("", "Yetenek başarılı bir şekilde güncellendi.", "success");
+    }
+</script>
+

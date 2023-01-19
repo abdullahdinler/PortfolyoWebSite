@@ -1,0 +1,27 @@
+﻿@model EntityLayer.Concrete.SocialMedia
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="margin: 0px 10% 20px 10%" class="form-group">
+
+    @using (Html.BeginForm("Edit", "SocialMedia", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {<form>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    @Html.HiddenFor(x => x.Name, new { @class = "form-control " })
+                    @Html.HiddenFor(x => x.Icon, new { @class = "form-control " })
+                    @Html.HiddenFor(x => x.Status, new { @class = "form-control " })
+                    @Html.Label("Sosyal Mesya Adresi", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.Link, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Link)
+                </div>
+            </div>
+         <button class="btn btn-outline-info">Kaydet</button>
+        </form>
+    }
+
+
+</div>
+

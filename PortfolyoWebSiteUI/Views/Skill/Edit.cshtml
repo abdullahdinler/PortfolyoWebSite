@@ -1,0 +1,29 @@
+﻿@model EntityLayer.Concrete.Skill
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="margin: 0px 10% 20px 10%" class="form-group">
+
+    @using (Html.BeginForm("Edit", "Skill", FormMethod.Post))
+    {
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.Label("Yetenek Adı", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control " })
+                    @Html.ValidationMessageFor(x => x.Name)
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Yetenek Seviye", new { @class = "text-bold" })
+                    @Html.TextBoxFor(x => x.SkillValue, new { @class = "form-control", @style = "text-color: red", @type = "range" })
+
+                </div>
+            </div>
+            <button class="btn btn-outline-info">Kaydet</button>
+        </form>
+
+    }
+
+</div>
